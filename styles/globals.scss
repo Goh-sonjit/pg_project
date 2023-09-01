@@ -19,16 +19,22 @@ body {
   width: 5px;
 }
 
-// /* Track */
-// ::-webkit-scrollbar-track {
-//   background: #ffffff;
-// }
+input[type=radio] {
+  accent-color: #fe5e21;
+}
+input[type=checkbox] {
+  accent-color: #fe5e21;
+}
+.slick-arrow{
+  display: none!important;
+}
+.modal-content {
+  width: 57.3vw!important;
 
-// /* Handle */
-// ::-webkit-scrollbar-thumb {
-//   background: #f1b621;
-// }
-
+}
+.modal-header{
+  background: linear-gradient(96deg, #fe5e21 0%, #f2a43a 100%) !important;
+}
 .select-f {
   display: block;
   width: 100%;
@@ -48,16 +54,31 @@ body {
   border: none;
   outline: none;
 }
-.form-control {
-
-  border: .7px solid #ccc !important;
-  padding:8px !important;
+.form-control,.search-box {
+  border: 0.7px solid #ccc !important;
+  padding: 8px !important;
   border-radius: 2px !important;
   font-size: 13px !important;
   height: 40px !important;
-  transition: border-color .15s ease-in-out,
-  box-shadow .15s ease-in-out,
-
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+.search-box {
+  border: 0.7px solid #ccc !important;
+ border-top-left-radius: 0px !important;
+ border-bottom-left-radius: 0px !important;
+ border-left: none!important;
+ transition: all 0.15s ease-in-out!important;
+ cursor: pointer;
+}
+.search-box:hover{
+  background-color: #F3A139;
+}
+.search-box:hover .search-icon{
+  color: #ffffff;
+}
+.search-icon{
+  color: #F3A139;
+  font-size: 24px;
 }
 label {
   font-weight: 400;
@@ -121,18 +142,17 @@ label {
   border: none !important;
   padding: 6px 8.8px !important;
   border-radius: 4px !important;
- 
+
   color: #fff !important;
   background: linear-gradient(96deg, #fe5e21 0%, #f2a43a 100%) !important;
 }
-.back-icon{
+.back-icon {
   color: #838282;
   font-size: 1.5rem;
   transition: 0.3s;
   cursor: pointer;
-  
 }
-.back-icon:hover{
+.back-icon:hover {
   color: #ff4901;
   font-size: 1.8rem;
 }
@@ -201,17 +221,17 @@ label {
 .near-me-icon:hover {
   color: #4b4b4b;
 }
-.section2,.section3{
+.section2,
+.section3 {
   background-color: #ffffff;
   padding: 1vw 1.8vw;
   display: flex;
   align-items: center;
 }
 
-.section2{
+.section2 {
   justify-content: space-between;
 }
-.section3{
+.section3 {
   justify-content: space-around;
 }
-

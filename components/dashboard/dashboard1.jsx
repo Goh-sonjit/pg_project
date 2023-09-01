@@ -5,23 +5,18 @@ const Dashboard1 = () => {
   return (
     <div className="container-fluid py-2 p-4 rounded-3">
       <div className="row">
-        <div className="col-md-4  d-flex  p-2 py-3">
-          <img
-            src={"../../imgs/man.png"}
-            alt="Preview"
-            style={{ width: "80px", height: "80px", borderRadius: "50%" }}
-          />
+      <div className="col-md-4 p-2">
+          <div className="card p-3 py-2 border-0 ">
+            <p className="text-dark">Start using our pg management tools</p>
 
-          <div className="text-start ps-3 pt-3">
-            <h5 className="">Welcome back</h5>
-            <p className="text-mute">It's nice to see you again</p>
+            <h6 className="text-dark"> Learn More</h6>
           </div>
         </div>
-        <div className="col-md-4 p-2 py-3">
-          {" "}
-          <div className="text-start p-2 pt-3">
-            <h5 className="">40 beds</h5>
-            <p className="text-mute">Are currently available</p>
+        <div className="col-md-4 p-2">
+          <div className="card p-3 py-2 border-0 ">
+            <p className="text-dark">Start using our pg management tools</p>
+
+            <h6 className="text-dark"> Learn More</h6>
           </div>
         </div>
         <div className="col-md-4 p-2">

@@ -206,7 +206,7 @@ const Navbar = () => {
         {`
           .navbar {
             background-color: #ffffff;
-            padding: 1vw 1.8vw;
+            padding: .7vw 1.8vw;
       
           }
           .mbil-nav {
