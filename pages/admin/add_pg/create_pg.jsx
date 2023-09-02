@@ -810,14 +810,7 @@ const Create_pg = () => {
               #f2a43a 100%
             ) !important;
           }
-          .google_map {
-            width: 100%;
-            border-radius: 4px !important;
-            height: 47%;
-            margin-top: 2.75rem;
-            box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px,
-              rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
-          }
+
           .heading-row {
             background: linear-gradient(96deg, #fc6523 0%, #f8a52f 100%);
             display: flex;

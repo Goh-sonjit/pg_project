@@ -84,7 +84,7 @@ const Banner = () => {
                 classNamePrefix="select"
               />
               <CiLocationOn className="near-me-icon" />
-              <button className=" btn-search">Search</button>
+              <button className=" btn-search"  onClick={() => route.push("/pglist")}>Search</button>
             </div>
             <div className="filter-bar container">
               <div className="row">

@@ -4,7 +4,20 @@
 html {
   scroll-behavior: smooth !important;
 }
-
+.book-bed{
+  border: 1.5px solid transparent;
+  padding: 0.51rem 1.05rem;
+  letter-spacing: .5px;
+  font-size: 0.9rem;
+  background-color: #f2a43a;
+  border-radius: 6.5px;
+  font-weight: 400;
+  background: linear-gradient(96deg, #fe5e21 0%, #f2a43a 100%);
+  color: #fff;
+  width: 100%;
+  -webkit-transition: 0.15s linear;
+  transition: 0.25s linear;
+}
 * {
   scroll-behavior: smooth !important;
   text-decoration: none !important;
@@ -32,53 +45,50 @@ input[type=checkbox] {
   width: 57.3vw!important;
 
 }
+.google_map {
+  width: 100%;
+  border-radius: 0px !important;
+  height: 47%;
+  margin-top: 2.75rem;
+  box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px,
+    rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+}
 .modal-header{
   background: linear-gradient(96deg, #fe5e21 0%, #f2a43a 100%) !important;
 }
-.select-f {
-  display: block;
-  width: 100%;
-  padding: 0.375rem 0.75rem;
-  font-size: 1rem;
-  font-weight: 400;
-  line-height: 1.5;
-  color: var(--cui-input-color, rgba(44, 56, 74, 0.95));
-  border: 1px solid var(--cui-input-border-color, #bfcbd9);
-  border-radius: 2px !important;
-  height: 34px !important;
-  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+.aminites-icon {
+  height: 1.3rem;
+  opacity: 0.5;
+  margin: 0.8rem 0rem;
 }
-.select-f:focus {
-  border: 1px solid #5679a3 !important;
-  color: #4770a3;
-  border: none;
-  outline: none;
+
+.aminites-icon-ac {
+  height: 1.3rem;
+  margin: 0.8rem 0rem;
 }
-.form-control,.search-box {
+
+.form-control,.search-box,.select-f  {
   border: 0.7px solid #ccc !important;
   padding: 8px !important;
   border-radius: 2px !important;
   font-size: 13px !important;
   height: 40px !important;
-  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  transition: border-color 0.15s ease-in-out, 
+  box-shadow 0.15s ease-in-out;
 }
-.search-box {
-  border: 0.7px solid #ccc !important;
- border-top-left-radius: 0px !important;
- border-bottom-left-radius: 0px !important;
- border-left: none!important;
- transition: all 0.15s ease-in-out!important;
- cursor: pointer;
+.select-f:focus{
+outline: none;
 }
-.search-box:hover{
-  background-color: #F3A139;
-}
-.search-box:hover .search-icon{
-  color: #ffffff;
-}
-.search-icon{
-  color: #F3A139;
-  font-size: 24px;
+
+.search-box{
+color: #4b4b4b;
+font-weight: 600;
+background-color: #f2f2f2;
+font-size: 1rem!important;
+display: flex;
+justify-content: center;
+align-items: center;
+cursor: pointer;
 }
 label {
   font-weight: 400;

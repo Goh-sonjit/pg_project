@@ -45,7 +45,7 @@ const Navbar = () => {
           <section className="nav-container">
             <p className="nav-logo ">
               <img
-                src="../../imgs/1_PG.com.png"
+                src="../../../imgs/1_PG.com.png"
                 onClick={() => router.push("/")}
                 style={{ cursor: "pointer" }}
               />

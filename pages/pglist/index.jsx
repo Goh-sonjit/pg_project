@@ -3,9 +3,12 @@ import Fixednavbar from "@/components/navbar/navbar-fixed";
 import { AiOutlineSearch } from "react-icons/ai";
 import Slider from "react-slick";
 import { MdRestartAlt } from "react-icons/md";
+import { useRouter } from "next/router";
 const index = () => {
+  const route = useRouter();
   const data = [
     {
+      pg_name: "Ashok pg",
       location: "sector 12 A-93 Noida",
       landmark: "Standalone building and Metro multispeciality",
       room_type: "Two sharing",
@@ -46,6 +49,7 @@ const index = () => {
       parking: "1",
     },
     {
+      pg_name: "RD pg",
       location: "sector 10 C-86 Noida",
       landmark: "Standalone building and Metro multispeciality",
       room_type: "Private",
@@ -86,6 +90,7 @@ const index = () => {
       parking: "1",
     },
     {
+      pg_name: "HIFI pg",
       location: "sector6 A-93 Noida",
       landmark: "Standalone building and Metro multispeciality",
       room_type: "Three sharing",
@@ -126,6 +131,7 @@ const index = () => {
       parking: "1",
     },
     {
+      pg_name: "DR best pg",
       location: "sector 10 A-93 Noida",
       landmark: "Standalone building and Metro multispeciality",
       room_type: "Four sharing",
@@ -254,7 +260,7 @@ const index = () => {
     outline: "none",
     appearance: "none",
     transition: "background 0.2s",
-    accentColor: "#fe5e21"
+    accentColor: "#fe5e21",
   };
 
   {
@@ -548,7 +554,15 @@ const index = () => {
                       <span>{data.landmark}</span>
                     </div>
                     <div className="col-md-2">
-                      <button className="search-btn " type="button">
+                      <button
+                        className="search-btn "
+                        type="button"
+                        onClick={() =>
+                          route.push(
+                            `/book_bed/${data.pg_name}/${data.location}/${data.room_type}`
+                          )
+                        }
+                      >
                         Book Bed
                       </button>
                     </div>
@@ -663,8 +677,9 @@ const index = () => {
         </div>
       </div>
       <style jsx>
+
         {`
-          
+        
           .reset-btn {
             border: none;
             border-radius: 4.5px;
@@ -679,18 +694,10 @@ const index = () => {
           .reset-btn:hover {
             background-color: #eaeaea;
           }
-          .aminites-icon {
-            height: 1.3rem;
-            opacity: 0.5;
-            margin: 0.8rem 0rem;
-          }
-          .aminites-icon-ac {
-            height: 1.3rem;
-            margin: 0.8rem 0rem;
-          }
+
           .thumb-img {
             border-radius: 6.5px;
-            width: 11.65vw;
+            width: 11vw;
             height: 30.25vh;
           }
           .show-aminites-card {
@@ -736,7 +743,7 @@ const index = () => {
             border: 0.3px solid #f3f2f2 !important;
           }
           .body {
-            padding: 0vw 1.8vw;
+            padding: 0vw 3.6vw;
             background-color: #ffffff;
           }
           .container-fluid {
