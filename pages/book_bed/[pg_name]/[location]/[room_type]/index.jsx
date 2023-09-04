@@ -270,6 +270,7 @@ const index = () => {
                         {room.bedinfo.map((obj, imgIdx) => (
                           <div className="text-center" key={imgIdx}>
                             <img
+                            className="img-fluid"
                               src={obj.img}
                               alt={`Flor ${roomIdx + 1} bed ${imgIdx + 1}`}
                               onClick={(e) =>
@@ -291,7 +292,7 @@ const index = () => {
                 }}
               >
                 <div className="text-center heading-f">Floor</div>
-                <div className="text-center heading" style={{width:"40%"}}>Private</div>
+                <div className="text-center heading" >Private</div>
                 <div className="text-center heading">Two sharing</div>
                 <div className="text-center heading">Three sharing</div>
                 <div className="text-center heading">Four sharing</div>
@@ -639,7 +640,7 @@ const index = () => {
             width: 100%;
           }
           .heading-f {
-            width: 25%;
+            width:45%;
           }
           .heading,
           .heading-f {
