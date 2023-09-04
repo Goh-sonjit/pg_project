@@ -5,6 +5,7 @@ import Slider from "react-slick";
 import { MdRestartAlt } from "react-icons/md";
 import { useRouter } from "next/router";
 import Footer from "@/components/footer";
+
 const index = () => {
   const route = useRouter();
   const data = [
@@ -564,7 +565,7 @@ const index = () => {
                           )
                         }
                       >
-                        Book Bed
+                       Select Bed
                       </button>
                     </div>
                   </div>
@@ -714,7 +715,7 @@ const index = () => {
             letter-spacing: 0.5px;
             font-size: 0.9rem;
             float: right;
-            border-radius: 6.5px;
+            border-radius: 1.5px;
             font-weight: 400;
             -webkit-transition: 0.15s linear;
             transition: 0.25s linear;

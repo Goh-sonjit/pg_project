@@ -224,7 +224,7 @@ const Navbar = () => {
           .search-btn {
             letter-spacing: .5px;
             font-size: 0.9rem;
-            border-radius: 6.5px;
+            border-radius: 1.5px;
             font-weight: 400;
             -webkit-transition: 0.15s linear;
             transition: 0.25s linear;

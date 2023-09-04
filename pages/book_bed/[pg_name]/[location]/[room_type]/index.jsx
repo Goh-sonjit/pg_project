@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import Fixednavbar from "@/components/navbar/navbar-fixed";
 import Footer from "@/components/footer";
+import Slider from "react-slick";
 const index = () => {
   const router = useRouter();
   const { pg_name, location, room_type } = router.query;
@@ -16,16 +17,18 @@ const index = () => {
     setPreviewImage(URL.createObjectURL(file));
   };
 
-  const pgBuilding = [
+  const pgBuildings = [
     {
       floorNumbers: 1,
       floorDetails: [
         {
           isAvailable: 1,
           roomtype: "Private",
-          img:"",
+          rent: "10000",
+          deposite: "7000",
           bedinfo: [
             {
+              selected: false,
               img: "../../../imgs/single-bed-s.png",
               img_Selected: "../../imgs/2_filled.png",
             },
@@ -34,12 +37,16 @@ const index = () => {
         {
           isAvailable: 1,
           roomtype: "Two_sharing",
+          rent: "80000",
+          deposite: "6000",
           bedinfo: [
             {
+              selected: false,
               img: "../../../imgs/single-bed-s.png",
               img_Selected: "../../imgs/2_filled.png",
             },
             {
+              selected: false,
               img: "../../../imgs/single-bed-s.png",
               img_Selected: "../../imgs/2_filled.png",
             },
@@ -48,16 +55,21 @@ const index = () => {
         {
           isAvailable: 1,
           roomtype: "Three Sharring",
+          rent: "60000",
+          deposite: "5000",
           bedinfo: [
             {
+              selected: false,
               img: "../../../imgs/single-bed-s.png",
               img_Selected: "../../imgs/2_filled.png",
             },
             {
+              selected: false,
               img: "../../../imgs/single-bed-s.png",
               img_Selected: "../../imgs/2_filled.png",
             },
             {
+              selected: false,
               img: "../../../imgs/single-bed-s.png",
               img_Selected: "../../imgs/2_filled.png",
             },
@@ -65,21 +77,27 @@ const index = () => {
         },
         {
           isAvailable: 1,
-          roomtype: "Three Sharring",
+          roomtype: "Four Sharring",
+          rent: "60000",
+          deposite: "5000",
           bedinfo: [
             {
+              selected: false,
               img: "../../../imgs/single-bed-s.png",
               img_Selected: "../../imgs/2_filled.png",
             },
             {
+              selected: false,
               img: "../../../imgs/single-bed-s.png",
               img_Selected: "../../imgs/2_filled.png",
             },
             {
+              selected: false,
               img: "../../../imgs/single-bed-s.png",
               img_Selected: "../../imgs/2_filled.png",
             },
             {
+              selected: false,
               img: "../../../imgs/single-bed-s.png",
               img_Selected: "../../imgs/2_filled.png",
             },
@@ -93,62 +111,80 @@ const index = () => {
         {
           isAvailable: 1,
           roomtype: "Private",
+          rent: "10000",
+          deposite: "7000",
           bedinfo: [
             {
+              selected: false,
               img: "../../../imgs/single-bed-s.png",
               img_Selected: "../../imgs/2_filled.png",
             },
           ],
         },
         {
-          isAvailable: 0,
+          isAvailable: 1,
           roomtype: "Two_sharing",
+          rent: "80000",
+          deposite: "6000",
           bedinfo: [
             {
+              selected: false,
               img: "../../../imgs/single-bed-s.png",
               img_Selected: "../../imgs/2_filled.png",
             },
             {
+              selected: false,
               img: "../../../imgs/single-bed-s.png",
               img_Selected: "../../imgs/2_filled.png",
             },
           ],
         },
         {
+          isAvailable: 1,
           roomtype: "Three Sharring",
-          isAvailable: 1,
+          rent: "60000",
+          deposite: "5000",
           bedinfo: [
             {
+              selected: false,
               img: "../../../imgs/single-bed-s.png",
               img_Selected: "../../imgs/2_filled.png",
             },
             {
+              selected: false,
               img: "../../../imgs/single-bed-s.png",
               img_Selected: "../../imgs/2_filled.png",
             },
             {
+              selected: false,
               img: "../../../imgs/single-bed-s.png",
               img_Selected: "../../imgs/2_filled.png",
             },
           ],
         },
         {
-          roomtype: "Four Sharring",
           isAvailable: 1,
+          roomtype: "Four Sharring",
+          rent: "60000",
+          deposite: "5000",
           bedinfo: [
             {
+              selected: false,
               img: "../../../imgs/single-bed-s.png",
               img_Selected: "../../imgs/2_filled.png",
             },
             {
+              selected: false,
               img: "../../../imgs/single-bed-s.png",
               img_Selected: "../../imgs/2_filled.png",
             },
             {
+              selected: false,
               img: "../../../imgs/single-bed-s.png",
               img_Selected: "../../imgs/2_filled.png",
             },
             {
+              selected: false,
               img: "../../../imgs/single-bed-s.png",
               img_Selected: "../../imgs/2_filled.png",
             },
@@ -162,8 +198,11 @@ const index = () => {
         {
           isAvailable: 1,
           roomtype: "Private",
+          rent: "10000",
+          deposite: "7000",
           bedinfo: [
             {
+              selected: false,
               img: "../../../imgs/single-bed-s.png",
               img_Selected: "../../imgs/2_filled.png",
             },
@@ -172,12 +211,16 @@ const index = () => {
         {
           isAvailable: 1,
           roomtype: "Two_sharing",
+          rent: "80000",
+          deposite: "6000",
           bedinfo: [
             {
+              selected: false,
               img: "../../../imgs/single-bed-s.png",
               img_Selected: "../../imgs/2_filled.png",
             },
             {
+              selected: false,
               img: "../../../imgs/single-bed-s.png",
               img_Selected: "../../imgs/2_filled.png",
             },
@@ -186,16 +229,21 @@ const index = () => {
         {
           isAvailable: 1,
           roomtype: "Three Sharring",
+          rent: "60000",
+          deposite: "5000",
           bedinfo: [
             {
+              selected: false,
               img: "../../../imgs/single-bed-s.png",
               img_Selected: "../../imgs/2_filled.png",
             },
             {
+              selected: false,
               img: "../../../imgs/single-bed-s.png",
               img_Selected: "../../imgs/2_filled.png",
             },
             {
+              selected: false,
               img: "../../../imgs/single-bed-s.png",
               img_Selected: "../../imgs/2_filled.png",
             },
@@ -203,21 +251,27 @@ const index = () => {
         },
         {
           isAvailable: 1,
-          roomtype: "Three Sharring",
+          roomtype: "Four Sharring",
+          rent: "60000",
+          deposite: "5000",
           bedinfo: [
             {
+              selected: false,
               img: "../../../imgs/single-bed-s.png",
               img_Selected: "../../imgs/2_filled.png",
             },
             {
+              selected: false,
               img: "../../../imgs/single-bed-s.png",
               img_Selected: "../../imgs/2_filled.png",
             },
             {
+              selected: false,
               img: "../../../imgs/single-bed-s.png",
               img_Selected: "../../imgs/2_filled.png",
             },
             {
+              selected: false,
               img: "../../../imgs/single-bed-s.png",
               img_Selected: "../../imgs/2_filled.png",
             },
@@ -226,9 +280,85 @@ const index = () => {
       ],
     },
   ];
-  const handleShow = (i, room) => {
-    console.log(i, room);
+  const [pgBuilding, setPgBuilding] = useState(pgBuildings);
+
+  const imgThumb = [
+    {
+      img: "../../../imgs/rooms/Rectangle 18.png",
+      name: "Dashboard",
+    },
+    {
+      img: "../../../imgs/rooms/Rectangle 22.png",
+      name: "data Campaign",
+    },
+    {
+      img: "../../../imgs/rooms/Rectangle 19.png",
+      name: "Invoice",
+    },
+    {
+      img: "../../../imgs/rooms/Rectangle 22.png",
+      name: "data Campaign",
+    },
+    {
+      img: "../../../imgs/rooms/Rectangle 19.png",
+      name: "Invoice",
+    },
+  ];
+
+  useEffect(() => {
+    console.log(pgBuilding); // This will display the updated state when it changes
+  }, [pgBuilding]);
+
+  const handleShow = (florNo, room) => {
+  
+    const updatedPgBuilding = pgBuilding.map((floor) => {
+      if (floor.floorNumbers === florNo) {
+        const updatedFloorDetails = floor.floorDetails.map((roomDetail) => {
+          if (roomDetail.roomtype === room.roomtype) {
+            const updatedBedInfo = roomDetail.bedinfo.map((bed) => ({
+              ...bed,
+              selected: true,
+            }));
+            return {
+              ...roomDetail,
+              bedinfo: updatedBedInfo,
+            };
+          }
+          return roomDetail;
+        });
+
+        return {
+          ...floor,
+          floorDetails: updatedFloorDetails,
+        };
+      }
+      return floor;
+    });
+
+    setPgBuilding(updatedPgBuilding);
   };
+  {
+    var settings = {
+      dots: true,
+      fade: true,
+      infinite: true,
+      speed: 500,
+      slidesToShow: 1,
+      slidesToScroll: 1,
+
+      // responsive: [
+      //   {
+      //     breakpoint: 1024,
+      //     settings: {
+      //       slidesToShow: 3,
+      //       slidesToScroll: 2,
+      //       initialSlide: 0,
+      //     },
+      //   },
+      // ],
+    };
+  }
+  let slider = settings;
   return (
     <>
       <div className="body">
@@ -241,30 +371,23 @@ const index = () => {
                 height: "fit-content",
               }}
             >
+              <div className=" my-2 ps-0">
+                <h1 className="pg-heading-location">
+                  Ashok pg building in sector 12 A-93 Noida
+                </h1>
+                <span className="ms-0 ps-0">
+                  Standalone building and Metro multispeciality...
+                </span>
+              </div>
               <div
                 className="col-md-9 p-0"
                 style={{ overflow: "scroll", height: "78vh" }}
               >
-                <div
-                  className=" heading-row"
-                  style={{
-                    borderTopLeftRadius: "6.5px",
-                    borderTopRightRadius: "6.5px",
-                    backgroundColor: "transparent",
-                  }}
-                >
-                  <div
-                    className="text-center heading "
-                    style={{ fontSize: "1rem" }}
-                  >
-                    PG Building
-                  </div>
-                </div>
                 {pgBuilding
                   .slice()
                   .reverse()
                   .map((floorDetails, i) => (
-                    <div className="room-row" key={i}>
+                    <div className="room-row" key={floorDetails.floorNumbers}>
                       <div className="text-center flor-head">
                         {floorDetails.floorNumbers}st
                       </div>
@@ -274,11 +397,13 @@ const index = () => {
                             <div className="text-center" key={imgIdx}>
                               <img
                                 className="img-fluid"
-                                src={obj.img}
-                                alt={`Flor ${roomIdx + 1} bed ${imgIdx + 1}`}
-                                onClick={(e) =>
-                                  handleShow(i, room.roomtype, room.price)
+                                src={
+                                  obj.selected == true
+                                    ? "../../../imgs/1_filled.png"
+                                    :  obj.img
                                 }
+                                alt={`Flor ${roomIdx + 1} bed ${imgIdx + 1}`}
+                                onClick={(e) => handleShow(floorDetails.floorNumbers, room)}
                               />
                             </div>
                           ))}
@@ -295,17 +420,83 @@ const index = () => {
                   <div className="text-center heading">Four sharing</div>
                 </div>
               </div>
-              <div className="col-md-3 p-0">
+              <div className="col-md-3 p-0 ">
                 <div
+                  className="p-2"
                   style={{
-                    marginTop: "41px",
                     height: "68.2vh",
                     border: "0.7px solid #f1f1f1",
                     borderLeft: "none",
+                    position: "relative",
                   }}
                 >
+                  <Slider {...slider}>
+                    {imgThumb.map((items, index) => (
+                      <div className="text-center" key={index}>
+                        <img
+                          src={items.img}
+                          style={{
+                            width: "100%",
+                            height: "30vh",
+                            marginTop: "2%",
+                          }}
+                        />
+                      </div>
+                    ))}
+                  </Slider>
 
-                  
+                  <div
+                    className="room-detail position-absolute bottom-0 "
+                    style={{ width: "95%" }}
+                  >
+                    <div className="my-2">
+                      <span className="pg-heading-location">Rent</span>
+                      <span className="float-end  pg-heading-location">
+                        <svg
+                          stroke="currentColor"
+                          fill="currentColor"
+                          stroke-width="0"
+                          viewBox="0 0 320 512"
+                          class="cart_rupees_logo__eSIPg"
+                          height="1em"
+                          width="1em"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path d="M308 96c6.627 0 12-5.373 12-12V44c0-6.627-5.373-12-12-12H12C5.373 32 0 37.373 0 44v44.748c0 6.627 5.373 12 12 12h85.28c27.308 0 48.261 9.958 60.97 27.252H12c-6.627 0-12 5.373-12 12v40c0 6.627 5.373 12 12 12h158.757c-6.217 36.086-32.961 58.632-74.757 58.632H12c-6.627 0-12 5.373-12 12v53.012c0 3.349 1.4 6.546 3.861 8.818l165.052 152.356a12.001 12.001 0 0 0 8.139 3.182h82.562c10.924 0 16.166-13.408 8.139-20.818L116.871 319.906c76.499-2.34 131.144-53.395 138.318-127.906H308c6.627 0 12-5.373 12-12v-40c0-6.627-5.373-12-12-12h-58.69c-3.486-11.541-8.28-22.246-14.252-32H308z"></path>
+                        </svg>{" "}
+                        7000
+                      </span>
+                    </div>
+                    <div className="my-2">
+                      <span className="pg-heading-location">Deposite</span>
+                      <span className="float-end  pg-heading-location">
+                        <svg
+                          stroke="currentColor"
+                          fill="currentColor"
+                          stroke-width="0"
+                          viewBox="0 0 320 512"
+                          class="cart_rupees_logo__eSIPg"
+                          height="1em"
+                          width="1em"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path d="M308 96c6.627 0 12-5.373 12-12V44c0-6.627-5.373-12-12-12H12C5.373 32 0 37.373 0 44v44.748c0 6.627 5.373 12 12 12h85.28c27.308 0 48.261 9.958 60.97 27.252H12c-6.627 0-12 5.373-12 12v40c0 6.627 5.373 12 12 12h158.757c-6.217 36.086-32.961 58.632-74.757 58.632H12c-6.627 0-12 5.373-12 12v53.012c0 3.349 1.4 6.546 3.861 8.818l165.052 152.356a12.001 12.001 0 0 0 8.139 3.182h82.562c10.924 0 16.166-13.408 8.139-20.818L116.871 319.906c76.499-2.34 131.144-53.395 138.318-127.906H308c6.627 0 12-5.373 12-12v-40c0-6.627-5.373-12-12-12h-58.69c-3.486-11.541-8.28-22.246-14.252-32H308z"></path>
+                        </svg>{" "}
+                        5000
+                      </span>
+                    </div>
+                    <button
+                      className="search-btn  my-1"
+                      type="button"
+                      // onClick={() =>
+                      //   route.push(
+                      //     `/book_bed/${data.pg_name}/${data.location}/${data.room_type}`
+                      //   )
+                      // }
+                    >
+                      Book this bed
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
@@ -649,8 +840,40 @@ const index = () => {
 
         <style jsx>
           {`
+          .price{
+            color: #212543;
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+          .pg-heading-location{
+            white-space: nowrap;
+            text-overflow: ellipsis;
+      
+            font-size: 1.125rem;
+            color:"#4B4B4B"
+            font-weight: 600;
+            text-transform: capitalize;
+            margin: 0;
+          }
+            .search-btn {
+              letter-spacing: 0.5px;
+              font-size: 0.9rem;
+              width: 100%;
+              border-radius: 1.5px;
+              font-weight: 400;
+              -webkit-transition: 0.15s linear;
+              transition: 0.25s linear;
+              padding: 0.4rem 0.7rem;
+              background: #f2a43a;
+              border: transparent;
+              color: #fff;
+            }
+
+            // .search-btn:hover {
+            //   background: linear-gradient(96deg, #ff4600 0%, #db7e00 100%);
+            // }
             .heading-row {
-              background-color: #F8F8F8;
+              background-color: #f8f8f8;
               display: flex;
               justify-content: space-between;
               align-items: center;
@@ -691,7 +914,7 @@ const index = () => {
               border-left: none;
             }
             .flor-head {
-              background-color: #F8F8F8;
+              background-color: #f8f8f8;
               color: #8d8c8c;
               font-size: 0.9rem;
               font-weight: 500;
@@ -720,7 +943,7 @@ const index = () => {
               box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
               padding: 0rem 0.5rem;
             }
-            img{
+            img {
               cursor: pointer;
             }
             .upld-btn {
