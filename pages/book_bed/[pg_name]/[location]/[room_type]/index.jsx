@@ -305,38 +305,57 @@ const index = () => {
     },
   ];
 
-  useEffect(() => {
-    console.log(pgBuilding); // This will display the updated state when it changes
-  }, [pgBuilding]);
+  const book = {
+    pg_name: "",
+    pg_address: "",
+    floor: "",
+    room_type: "",
+    rent: "",
+    deposite: "",
+    full_paid: false,
+    advance: "",
+    tenant_name: "",
+    number: "",
+    email: "",
+  };
+  const [bookingForm, setBookingForm] = useState(book);
+  const [selectBed, setSelectBed] = useState(false);
+  const [confirmBed, setConfirmBed] = useState(false);
 
-  const handleShow = (florNo, room) => {
-  
+  const handleShow = (florNo, room, imgIdx) => {
     const updatedPgBuilding = pgBuilding.map((floor) => {
-      if (floor.floorNumbers === florNo) {
-        const updatedFloorDetails = floor.floorDetails.map((roomDetail) => {
-          if (roomDetail.roomtype === room.roomtype) {
-            const updatedBedInfo = roomDetail.bedinfo.map((bed) => ({
-              ...bed,
-              selected: true,
-            }));
-            return {
-              ...roomDetail,
-              bedinfo: updatedBedInfo,
-            };
-          }
-          return roomDetail;
-        });
+      const updatedFloorDetails = floor.floorDetails.map((roomDetail) => {
+        const updatedBedInfo = roomDetail.bedinfo.map((bed, index) => ({
+          ...bed,
+          selected:
+            floor.floorNumbers === florNo &&
+            roomDetail.roomtype === room.roomtype &&
+            index === imgIdx,
+        }));
 
         return {
-          ...floor,
-          floorDetails: updatedFloorDetails,
+          ...roomDetail,
+          bedinfo: updatedBedInfo,
         };
-      }
-      return floor;
-    });
+      });
 
+      return {
+        ...floor,
+        floorDetails: updatedFloorDetails,
+      };
+    });
     setPgBuilding(updatedPgBuilding);
+    setBookingForm({
+      ...bookingForm,
+      floor_no: florNo,
+      room_type: room.roomtype,
+      rent: room.rent,
+      deposite: room.deposite,
+    });
+    setSelectBed(true);
   };
+
+  const checkOut = () => setConfirmBed(true);
   {
     var settings = {
       dots: true,
@@ -358,484 +377,613 @@ const index = () => {
       // ],
     };
   }
+
+  console.log(bookingForm);
   let slider = settings;
   return (
     <>
       <div className="body">
         <Fixednavbar />
+
         <div className="container-fluid p-0 ms-0 me-0">
-          <section className="my-md-5">
-            <div
-              className="row p-0"
-              style={{
-                height: "fit-content",
-              }}
-            >
-              <div className=" my-2 ps-0">
-                <h1 className="pg-heading-location">
-                  Ashok pg building in sector 12 A-93 Noida
-                </h1>
-                <span className="ms-0 ps-0">
-                  Standalone building and Metro multispeciality...
-                </span>
-              </div>
+          {confirmBed ? (
+            <section className="my-md-5">
               <div
-                className="col-md-9 p-0"
-                style={{ overflow: "scroll", height: "78vh" }}
+                className="row p-0"
+                style={{
+                  height: "fit-content",
+                  boxShadow: " rgba(0, 0, 0, 0.08) 0px 4px 12px",
+                  borderRadius: "6.5px",
+                }}
               >
-                {pgBuilding
-                  .slice()
-                  .reverse()
-                  .map((floorDetails, i) => (
-                    <div className="room-row" key={floorDetails.floorNumbers}>
-                      <div className="text-center flor-head">
-                        {floorDetails.floorNumbers}st
+                <h4 className="">Please fill out the form below</h4>
+                <form className="row">
+                  <div className="col-4">
+                    <span className="ms-0">Name as per your ID:</span>
+                    <input
+                      type="text"
+                      className="form-control mb-2"
+                      placeholder="full name"
+                    />
+                    <span className="ms-0">Phone number:</span>
+                    <input
+                      type="number"
+                      className="form-control mb-2"
+                      placeholder="phone number"
+                    />
+                    <span className="ms-0">Email address:</span>
+                    <input
+                      type="email"
+                      className="form-control mb-2"
+                      placeholder="email"
+                    />
+                    <span className="ms-0">Chose your shifting date:</span>
+                    <input type="date" className="form-control mb-2" />
+                    {/* <span className="ms-0">Select gender:</span>
+                    <select
+                      className="select-f w-100 mb-2"
+                      aria-label="Default select example"
+                      name=""
+                    >
+                      <option></option>
+                      <option value="Male">Male</option>
+                      <option value="Female">Female</option>
+                      <option value="Transgender">Transgender</option>
+                    </select> */}
+                    {/* <span className="ms-0">Please upload your ID card</span>
+                    <div
+                      className="card "
+                      style={{
+                        height: "30vh",
+                        display: "flex",
+                        justifyContent: "center",
+                        backgroundColor: " #f2f2f2",
+                      }}
+                    >
+                      {previewImage ? (
+                        <img
+                          src={previewImage}
+                          alt="Preview"
+                          style={{
+                            maxWidth: "100%",
+                            maxHeight: "100%",
+                            borderRadius: "5.5px",
+                          }}
+                        />
+                      ) : (
+                        <input
+                          type="file"
+                          id="fileupload"
+                          name="mediaImage"
+                          onChange={handleFileChange}
+                          className="upld-btn"
+                          accept="image/jpg,image/jpeg,image/png"
+                          aria-describedby="name-error"
+                          aria-invalid="true"
+                        />
+                      )}
+                    </div> */}
+                  </div>
+                  <div className="col-4">
+                    <span style={{ color: "black", fontSize: "1rem" }}>
+                      Your selected details
+                    </span>
+                    <ul className="p-0">
+                      <li className="my-2">
+                        <span style={{ lineHeight: "1.7" }}>
+                          <strong>*PG location : </strong>
+                          {location}
+                        </span>
+                      </li>
+                      <li className="my-2">
+                        <span style={{ lineHeight: "1.7" }}>
+                          <strong>*Room detils : </strong>{" "}
+                          {bookingForm.room_type} room at 2nd floor
+                        </span>
+                      </li>
+                      <li className="my-2">
+                        <span style={{ lineHeight: "1.7" }}>
+                          <strong>*Monthly rent : </strong>{" "}
+                          <svg
+                            stroke="currentColor"
+                            fill="currentColor"
+                            stroke-width="0"
+                            viewBox="0 0 320 512"
+                            class="cart_rupees_logo__eSIPg"
+                            height="1em"
+                            width="1em"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path d="M308 96c6.627 0 12-5.373 12-12V44c0-6.627-5.373-12-12-12H12C5.373 32 0 37.373 0 44v44.748c0 6.627 5.373 12 12 12h85.28c27.308 0 48.261 9.958 60.97 27.252H12c-6.627 0-12 5.373-12 12v40c0 6.627 5.373 12 12 12h158.757c-6.217 36.086-32.961 58.632-74.757 58.632H12c-6.627 0-12 5.373-12 12v53.012c0 3.349 1.4 6.546 3.861 8.818l165.052 152.356a12.001 12.001 0 0 0 8.139 3.182h82.562c10.924 0 16.166-13.408 8.139-20.818L116.871 319.906c76.499-2.34 131.144-53.395 138.318-127.906H308c6.627 0 12-5.373 12-12v-40c0-6.627-5.373-12-12-12h-58.69c-3.486-11.541-8.28-22.246-14.252-32H308z"></path>
+                          </svg>
+                          {bookingForm.rent}
+                        </span>
+                      </li>
+                      <li className="my-2">
+                        <span style={{ lineHeight: "1.7" }}>
+                          <strong>*Security deposite : </strong>{" "}
+                          <svg
+                            stroke="currentColor"
+                            fill="currentColor"
+                            stroke-width="0"
+                            viewBox="0 0 320 512"
+                            class="cart_rupees_logo__eSIPg"
+                            height="1em"
+                            width="1em"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path d="M308 96c6.627 0 12-5.373 12-12V44c0-6.627-5.373-12-12-12H12C5.373 32 0 37.373 0 44v44.748c0 6.627 5.373 12 12 12h85.28c27.308 0 48.261 9.958 60.97 27.252H12c-6.627 0-12 5.373-12 12v40c0 6.627 5.373 12 12 12h158.757c-6.217 36.086-32.961 58.632-74.757 58.632H12c-6.627 0-12 5.373-12 12v53.012c0 3.349 1.4 6.546 3.861 8.818l165.052 152.356a12.001 12.001 0 0 0 8.139 3.182h82.562c10.924 0 16.166-13.408 8.139-20.818L116.871 319.906c76.499-2.34 131.144-53.395 138.318-127.906H308c6.627 0 12-5.373 12-12v-40c0-6.627-5.373-12-12-12h-58.69c-3.486-11.541-8.28-22.246-14.252-32H308z"></path>
+                          </svg>
+                          {bookingForm.deposite}
+                        </span>
+                      </li>
+                    </ul>
+                    <span style={{ color: "black", fontSize: "1rem" }}>
+                      Note*
+                    </span>
+                    <ul className="p-0">
+                      <li className="my-2">
+                        <span style={{ lineHeight: "1.7" }}>
+                          All the information you submit here goes directly to
+                          the PG owner after you have booked your bed.
+                        </span>
+                      </li>
+
+                      <li className="my-3">
+                        <span style={{ lineHeight: "1.7" }}>
+                          Once you've completed the bed booking successfully, an
+                          email will be sent to you containing the PG owner's
+                          name, contact number, and payment receipt.
+                        </span>
+                      </li>
+                    </ul>
+                  </div>
+                  <div className="col-4">
+                    <div className="card p-2">
+                      <div className="my-2">
+                        <span className="pg-heading-location">
+                          Monthly rent
+                        </span>
+                        <span className="float-end  pg-heading-location">
+                          <svg
+                            stroke="currentColor"
+                            fill="currentColor"
+                            stroke-width="0"
+                            viewBox="0 0 320 512"
+                            class="cart_rupees_logo__eSIPg"
+                            height="1em"
+                            width="1em"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path d="M308 96c6.627 0 12-5.373 12-12V44c0-6.627-5.373-12-12-12H12C5.373 32 0 37.373 0 44v44.748c0 6.627 5.373 12 12 12h85.28c27.308 0 48.261 9.958 60.97 27.252H12c-6.627 0-12 5.373-12 12v40c0 6.627 5.373 12 12 12h158.757c-6.217 36.086-32.961 58.632-74.757 58.632H12c-6.627 0-12 5.373-12 12v53.012c0 3.349 1.4 6.546 3.861 8.818l165.052 152.356a12.001 12.001 0 0 0 8.139 3.182h82.562c10.924 0 16.166-13.408 8.139-20.818L116.871 319.906c76.499-2.34 131.144-53.395 138.318-127.906H308c6.627 0 12-5.373 12-12v-40c0-6.627-5.373-12-12-12h-58.69c-3.486-11.541-8.28-22.246-14.252-32H308z"></path>
+                          </svg>{" "}
+                          {bookingForm.rent}
+                        </span>
                       </div>
-                      {floorDetails.floorDetails.map((room, roomIdx) => (
-                        <div className="text-center room-box" key={roomIdx}>
-                          {room.bedinfo.map((obj, imgIdx) => (
-                            <div className="text-center" key={imgIdx}>
-                              <img
-                                className="img-fluid"
-                                src={
-                                  obj.selected == true
-                                    ? "../../../imgs/1_filled.png"
-                                    :  obj.img
-                                }
-                                alt={`Flor ${roomIdx + 1} bed ${imgIdx + 1}`}
-                                onClick={(e) => handleShow(floorDetails.floorNumbers, room)}
-                              />
+                      <div className="my-2">
+                        <span className="pg-heading-location">
+                          Deposite ammount
+                        </span>
+                        <span className="float-end  pg-heading-location">
+                          <svg
+                            stroke="currentColor"
+                            fill="currentColor"
+                            stroke-width="0"
+                            viewBox="0 0 320 512"
+                            class="cart_rupees_logo__eSIPg"
+                            height="1em"
+                            width="1em"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path d="M308 96c6.627 0 12-5.373 12-12V44c0-6.627-5.373-12-12-12H12C5.373 32 0 37.373 0 44v44.748c0 6.627 5.373 12 12 12h85.28c27.308 0 48.261 9.958 60.97 27.252H12c-6.627 0-12 5.373-12 12v40c0 6.627 5.373 12 12 12h158.757c-6.217 36.086-32.961 58.632-74.757 58.632H12c-6.627 0-12 5.373-12 12v53.012c0 3.349 1.4 6.546 3.861 8.818l165.052 152.356a12.001 12.001 0 0 0 8.139 3.182h82.562c10.924 0 16.166-13.408 8.139-20.818L116.871 319.906c76.499-2.34 131.144-53.395 138.318-127.906H308c6.627 0 12-5.373 12-12v-40c0-6.627-5.373-12-12-12h-58.69c-3.486-11.541-8.28-22.246-14.252-32H308z"></path>
+                          </svg>{" "}
+                          {bookingForm.deposite}
+                        </span>
+                      </div>
+                      <div className="my-2">
+                      <input class="form-check-input" type="checkbox" id="flexSwitchCheckReverse"/>
+  <span for="flexSwitchCheckReverse">Pay full ammount</span>
+                        
+                      </div>
+                      <div className=" my-2">
+                        <button className="book-bed">Pay</button>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </section>
+          ) : (
+            <>
+              <section className="my-md-5">
+                <div
+                  className="row p-0"
+                  style={{
+                    height: "fit-content",
+                  }}
+                >
+                  <div className=" my-2 ps-0">
+                    <h1 className="pg-heading-location">
+                      Ashok pg building in sector 12 A-93 Noida
+                    </h1>
+                    <span className="ms-0 ps-0">
+                      Standalone building and Metro multispeciality...
+                    </span>
+                  </div>
+                  <div
+                    className="col-md-9 p-0"
+                    style={{ overflow: "scroll", height: "78vh" }}
+                  >
+                    {pgBuilding
+                      .slice()
+                      .reverse()
+                      .map((floorDetails, i) => (
+                        <div
+                          className="room-row"
+                          key={floorDetails.floorNumbers}
+                        >
+                          <div className="text-center flor-head">
+                            {floorDetails.floorNumbers}st
+                          </div>
+                          {floorDetails.floorDetails.map((room, roomIdx) => (
+                            <div className="text-center room-box" key={roomIdx}>
+                              {room.bedinfo.map((obj, imgIdx) => (
+                                <div className="text-center" key={imgIdx}>
+                                  <img
+                                    className="img-fluid"
+                                    src={
+                                      obj.selected == true
+                                        ? "../../../imgs/1_filled.png"
+                                        : obj.img
+                                    }
+                                    alt={`Flor ${roomIdx + 1} bed ${
+                                      imgIdx + 1
+                                    }`}
+                                    onClick={(e) =>
+                                      handleShow(
+                                        floorDetails.floorNumbers,
+                                        room,
+                                        imgIdx
+                                      )
+                                    }
+                                  />
+                                </div>
+                              ))}
                             </div>
                           ))}
                         </div>
                       ))}
-                    </div>
-                  ))}
 
-                <div className=" heading-row">
-                  <div className="text-center heading-f">Floor</div>
-                  <div className="text-center heading">Private</div>
-                  <div className="text-center heading">Two sharing</div>
-                  <div className="text-center heading">Three sharing</div>
-                  <div className="text-center heading">Four sharing</div>
-                </div>
-              </div>
-              <div className="col-md-3 p-0 ">
-                <div
-                  className="p-2"
-                  style={{
-                    height: "68.2vh",
-                    border: "0.7px solid #f1f1f1",
-                    borderLeft: "none",
-                    position: "relative",
-                  }}
-                >
-                  <Slider {...slider}>
-                    {imgThumb.map((items, index) => (
-                      <div className="text-center" key={index}>
-                        <img
-                          src={items.img}
-                          style={{
-                            width: "100%",
-                            height: "30vh",
-                            marginTop: "2%",
-                          }}
-                        />
-                      </div>
-                    ))}
-                  </Slider>
-
-                  <div
-                    className="room-detail position-absolute bottom-0 "
-                    style={{ width: "95%" }}
-                  >
-                    <div className="my-2">
-                      <span className="pg-heading-location">Rent</span>
-                      <span className="float-end  pg-heading-location">
-                        <svg
-                          stroke="currentColor"
-                          fill="currentColor"
-                          stroke-width="0"
-                          viewBox="0 0 320 512"
-                          class="cart_rupees_logo__eSIPg"
-                          height="1em"
-                          width="1em"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path d="M308 96c6.627 0 12-5.373 12-12V44c0-6.627-5.373-12-12-12H12C5.373 32 0 37.373 0 44v44.748c0 6.627 5.373 12 12 12h85.28c27.308 0 48.261 9.958 60.97 27.252H12c-6.627 0-12 5.373-12 12v40c0 6.627 5.373 12 12 12h158.757c-6.217 36.086-32.961 58.632-74.757 58.632H12c-6.627 0-12 5.373-12 12v53.012c0 3.349 1.4 6.546 3.861 8.818l165.052 152.356a12.001 12.001 0 0 0 8.139 3.182h82.562c10.924 0 16.166-13.408 8.139-20.818L116.871 319.906c76.499-2.34 131.144-53.395 138.318-127.906H308c6.627 0 12-5.373 12-12v-40c0-6.627-5.373-12-12-12h-58.69c-3.486-11.541-8.28-22.246-14.252-32H308z"></path>
-                        </svg>{" "}
-                        7000
-                      </span>
-                    </div>
-                    <div className="my-2">
-                      <span className="pg-heading-location">Deposite</span>
-                      <span className="float-end  pg-heading-location">
-                        <svg
-                          stroke="currentColor"
-                          fill="currentColor"
-                          stroke-width="0"
-                          viewBox="0 0 320 512"
-                          class="cart_rupees_logo__eSIPg"
-                          height="1em"
-                          width="1em"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path d="M308 96c6.627 0 12-5.373 12-12V44c0-6.627-5.373-12-12-12H12C5.373 32 0 37.373 0 44v44.748c0 6.627 5.373 12 12 12h85.28c27.308 0 48.261 9.958 60.97 27.252H12c-6.627 0-12 5.373-12 12v40c0 6.627 5.373 12 12 12h158.757c-6.217 36.086-32.961 58.632-74.757 58.632H12c-6.627 0-12 5.373-12 12v53.012c0 3.349 1.4 6.546 3.861 8.818l165.052 152.356a12.001 12.001 0 0 0 8.139 3.182h82.562c10.924 0 16.166-13.408 8.139-20.818L116.871 319.906c76.499-2.34 131.144-53.395 138.318-127.906H308c6.627 0 12-5.373 12-12v-40c0-6.627-5.373-12-12-12h-58.69c-3.486-11.541-8.28-22.246-14.252-32H308z"></path>
-                        </svg>{" "}
-                        5000
-                      </span>
-                    </div>
-                    <button
-                      className="search-btn  my-1"
-                      type="button"
-                      // onClick={() =>
-                      //   route.push(
-                      //     `/book_bed/${data.pg_name}/${data.location}/${data.room_type}`
-                      //   )
-                      // }
-                    >
-                      Book this bed
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </section>
-          <section className="my-md-5">
-            <div
-              className="row p-0"
-              style={{
-                height: "fit-content",
-                boxShadow: " rgba(0, 0, 0, 0.08) 0px 4px 12px",
-                borderRadius: "6.5px",
-              }}
-            >
-              <h4 className="col-12">
-                <div className="row">
-                  <div className="col-md-9 p-1">
-                    <div className=" d-flex ">
-                      <input
-                        type="text"
-                        className="form-control w-75"
-                        placeholder="Type in place to get direction from PG"
-                      />
-                      <span className="search-box ">Get Direction</span>
+                    <div className=" heading-row">
+                      <div className="text-center heading-f">Floor</div>
+                      <div className="text-center heading">Private</div>
+                      <div className="text-center heading">Two sharing</div>
+                      <div className="text-center heading">Three sharing</div>
+                      <div className="text-center heading">Four sharing</div>
                     </div>
                   </div>
-                  <div className="col-md-3 ps-md-3">Near By...</div>
-                </div>
-              </h4>
-
-              <div className="col-md-9">
-                <div className="row p-0">
-                  <iframe
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3503.203386323958!2d77.31864131492027!3d28.59367469258985!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390ce4f0a89ce605%3A0xfd09bf1f744de96f!2sGohoardings!5e0!3m2!1sen!2sin!4v1667808584343!5m2!1sen!2sin"
-                    className="google_map m-0 p-0"
-                    allowFullScreen={true}
-                    loading="lazy"
-                    style={{
-                      height: "42vh",
-                      boxShadow: " rgba(0, 0, 0, 0.08) 0px 4px 12px",
-                    }}
-                    title="google-map"
-                  ></iframe>
-                </div>
-              </div>
-              <div className="col-md-3 ps-md-3">
-                <ul className="p-0">
-                  <li>
-                    <img
-                      src="../../../imgs/train.png"
-                      className="aminites-icon"
-                    />{" "}
-                    <span>Metro</span>
-                  </li>
-
-                  <li>
-                    <img
-                      src="../../../imgs/mall.png"
-                      className="aminites-icon"
-                    />{" "}
-                    <span>Mall</span>
-                  </li>
-                  <li>
-                    <img
-                      src="../../../imgs/atm-machine.png"
-                      className="aminites-icon"
-                    />
-                    <span>ATM</span>
-                  </li>
-                  <li>
-                    <img
-                      src="../../../imgs/park.png"
-                      className="aminites-icon"
-                    />
-                    <span>Park</span>
-                  </li>
-                  <li>
-                    <img
-                      src="../../../imgs/bank.png"
-                      className="aminites-icon"
-                    />
-                    <span>Bank</span>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </section>
-          <section className="my-md-5">
-            <div
-              className="row p-0"
-              style={{
-                height: "fit-content",
-              }}
-            >
-              <div className="col-md-8">
-                <div
-                  className="row"
-                  style={{
-                    boxShadow: " rgba(0, 0, 0, 0.08) 0px 4px 12px",
-                    borderRadius: "6.5px",
-                  }}
-                >
-                  <h4 className="">Amenities available</h4>
-                  <div className="col-md-4">
-                    <ul className="p-0">
-                      <li>
-                        <img
-                          src="../../../imgs/air-conditioner.png"
-                          className="aminites-icon-ac"
-                        />{" "}
-                        <span> AC</span>
-                      </li>
-
-                      <li>
-                        <img
-                          src="../../../imgs/restaurant.png"
-                          className="aminites-icon"
-                        />{" "}
-                        <span>Food</span>
-                      </li>
-                      <li>
-                        <img
-                          src="../../../imgs/wi-fi.png"
-                          className="aminites-icon"
-                        />{" "}
-                        <span>WI-FI</span>
-                      </li>
-                      <li>
-                        <img
-                          src="../../../imgs/laundry.png"
-                          className="aminites-icon"
-                        />{" "}
-                        <span>Washing Machine</span>
-                      </li>
-                    </ul>
-                  </div>
-                  <div className="col-md-4">
-                    <ul className="p-0">
-                      <li>
-                        <img
-                          src="../../../imgs/television.png"
-                          className="aminites-icon"
-                        />
-                        <span>TV</span>
-                      </li>
-
-                      <li>
-                        <img
-                          src="../../../imgs/fridge.png"
-                          className="aminites-icon"
-                        />
-                        <span>Fridge</span>
-                      </li>
-                      <li>
-                        <img
-                          src="../../../imgs/water-boiler.png"
-                          className="aminites-icon"
-                        />
-                        <span>Geyser</span>
-                      </li>
-                      <li>
-                        <img
-                          src="../../../imgs/generator.png"
-                          className="aminites-icon"
-                        />{" "}
-                        <span>Power Backup</span>
-                      </li>
-                    </ul>
-                  </div>
-                  <div className="col-md-4">
-                    <ul className="p-0">
-                      <li>
-                        <img
-                          src="../../../imgs/laundry2.png"
-                          className="aminites-icon"
-                        />{" "}
-                        <span>Laundry</span>
-                      </li>
-                      <li>
-                        <img
-                          src="../../../imgs/parking-area.png"
-                          className="aminites-icon"
-                        />
-                        <span>Parking area</span>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-              <div className="col-md-4 ">
-                <div
-                  className="row ms-2"
-                  style={{
-                    boxShadow: " rgba(0, 0, 0, 0.08) 0px 4px 12px",
-                    borderRadius: "6.5px",
-                  }}
-                >
-                  <h4 className="">Rules and regulations</h4>
-                  <div className="col">
-                    <ul className="p-0">
-                      <li>
-                        <img
-                          src="../../../imgs/no-smoking.png"
-                          className="aminites-icon"
-                        />{" "}
-                        <span>No smoking</span>
-                      </li>
-
-                      <li>
-                        <img
-                          src="../../../imgs/no-drinking.png"
-                          className="aminites-icon"
-                        />{" "}
-                        <span>No alcohole</span>
-                      </li>
-                      <li>
-                        <img
-                          src="../../../imgs/girl2.png"
-                          className="aminites-icon-ac"
-                        />{" "}
-                        <span>No Girl’s Entry</span>
-                      </li>
-                      <li>
-                        <img
-                          src="../../../imgs/gate.png"
-                          className="aminites-icon"
-                        />{" "}
-                        <span>Gate Closing Time 11:00 pm</span>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </section>
-
-          {/* <section className="my-md-5">
-          <div
-            className="row p-0"
-            style={{
-              height: "fit-content",
-              boxShadow: " rgba(0, 0, 0, 0.08) 0px 4px 12px",
-              borderRadius: "6.5px",
-            }}
-          >
-            <h4 className="">Please fill out the form below</h4>
-            <form className="row">
-              <div className="col-4">
-                <span className="ms-0">Name as per your ID:</span>
-                <input
-                  type="text"
-                  className="form-control mb-2"
-                  placeholder="full name"
-                />
-                <span className="ms-0">Phone number:</span>
-                <input
-                  type="number"
-                  className="form-control mb-2"
-                  placeholder="phone number"
-                />
-                <span className="ms-0">Email address:</span>
-                <input
-                  type="email"
-                  className="form-control mb-2"
-                  placeholder="email"
-                />
-                <span className="ms-0">Select gender:</span>
-                <select
-                  className="select-f w-100 mb-2"
-                  aria-label="Default select example"
-                  name=""
-                >
-                  <option></option>
-                  <option value="Male">Male</option>
-                  <option value="Female">Female</option>
-                  <option value="Transgender">Transgender</option>
-                </select>
-              </div>
-              <div className="col-4">
-                <span className="ms-0">Chose your shifting date:</span>
-                <input type="date" className="form-control mb-2" />
-                <span className="ms-0">Please upload your ID card</span>
-                <div
-                  className="card "
-                  style={{
-                    height: "30vh",
-                    display: "flex",
-                    justifyContent: "center",
-                    backgroundColor: " #f2f2f2",
-                  }}
-                >
-                  {previewImage ? (
-                    <img
-                      src={previewImage}
-                      alt="Preview"
+                  <div className="col-md-3 p-0 ">
+                    <div
+                      className="p-2"
                       style={{
-                        maxWidth: "100%",
-                        maxHeight: "100%",
-                        borderRadius: "5.5px",
+                        height: "68.2vh",
+                        border: "0.7px solid #f1f1f1",
+                        borderLeft: "none",
+                        position: "relative",
                       }}
-                    />
-                  ) : (
-                    <input
-                      type="file"
-                      id="fileupload"
-                      name="mediaImage"
-                      onChange={handleFileChange}
-                      className="upld-btn"
-                      accept="image/jpg,image/jpeg,image/png"
-                      aria-describedby="name-error"
-                      aria-invalid="true"
-                    />
-                  )}
+                    >
+                      {selectBed == true ? (
+                        <>
+                          {" "}
+                          <Slider {...slider}>
+                            {imgThumb.map((items, index) => (
+                              <div className="text-center" key={index}>
+                                <img
+                                  src={items.img}
+                                  style={{
+                                    width: "100%",
+                                    height: "30vh",
+                                    marginTop: "2%",
+                                  }}
+                                />
+                              </div>
+                            ))}
+                          </Slider>
+                          <div
+                            className="room-detail position-absolute bottom-0 "
+                            style={{ width: "95%" }}
+                          >
+                            <div className="my-2">
+                              <span className="pg-heading-location">Rent</span>
+                              <span className="float-end  pg-heading-location">
+                                <svg
+                                  stroke="currentColor"
+                                  fill="currentColor"
+                                  stroke-width="0"
+                                  viewBox="0 0 320 512"
+                                  class="cart_rupees_logo__eSIPg"
+                                  height="1em"
+                                  width="1em"
+                                  xmlns="http://www.w3.org/2000/svg"
+                                >
+                                  <path d="M308 96c6.627 0 12-5.373 12-12V44c0-6.627-5.373-12-12-12H12C5.373 32 0 37.373 0 44v44.748c0 6.627 5.373 12 12 12h85.28c27.308 0 48.261 9.958 60.97 27.252H12c-6.627 0-12 5.373-12 12v40c0 6.627 5.373 12 12 12h158.757c-6.217 36.086-32.961 58.632-74.757 58.632H12c-6.627 0-12 5.373-12 12v53.012c0 3.349 1.4 6.546 3.861 8.818l165.052 152.356a12.001 12.001 0 0 0 8.139 3.182h82.562c10.924 0 16.166-13.408 8.139-20.818L116.871 319.906c76.499-2.34 131.144-53.395 138.318-127.906H308c6.627 0 12-5.373 12-12v-40c0-6.627-5.373-12-12-12h-58.69c-3.486-11.541-8.28-22.246-14.252-32H308z"></path>
+                                </svg>{" "}
+                                7000
+                              </span>
+                            </div>
+                            <div className="my-2">
+                              <span className="pg-heading-location">
+                                Deposite
+                              </span>
+                              <span className="float-end  pg-heading-location">
+                                <svg
+                                  stroke="currentColor"
+                                  fill="currentColor"
+                                  stroke-width="0"
+                                  viewBox="0 0 320 512"
+                                  class="cart_rupees_logo__eSIPg"
+                                  height="1em"
+                                  width="1em"
+                                  xmlns="http://www.w3.org/2000/svg"
+                                >
+                                  <path d="M308 96c6.627 0 12-5.373 12-12V44c0-6.627-5.373-12-12-12H12C5.373 32 0 37.373 0 44v44.748c0 6.627 5.373 12 12 12h85.28c27.308 0 48.261 9.958 60.97 27.252H12c-6.627 0-12 5.373-12 12v40c0 6.627 5.373 12 12 12h158.757c-6.217 36.086-32.961 58.632-74.757 58.632H12c-6.627 0-12 5.373-12 12v53.012c0 3.349 1.4 6.546 3.861 8.818l165.052 152.356a12.001 12.001 0 0 0 8.139 3.182h82.562c10.924 0 16.166-13.408 8.139-20.818L116.871 319.906c76.499-2.34 131.144-53.395 138.318-127.906H308c6.627 0 12-5.373 12-12v-40c0-6.627-5.373-12-12-12h-58.69c-3.486-11.541-8.28-22.246-14.252-32H308z"></path>
+                                </svg>{" "}
+                                5000
+                              </span>
+                            </div>
+                            <button
+                              className="search-btn  my-1"
+                              type="button"
+                              onClick={checkOut}
+                            >
+                              Book this bed
+                            </button>
+                          </div>
+                        </>
+                      ) : (
+                        <div className="position-absolute top-50  ">
+                          <span>
+                            Choose a bed toview information <br />
+                            about the room.
+                          </span>
+                        </div>
+                      )}
+                    </div>
+                  </div>
                 </div>
-              </div>
-              <div className="col-4">
-                <span style={{ color: "black", fontSize: "1rem" }}>Note*</span>
-                <ul className="p-0">
-                  <li className="my-2">
-                    <span style={{ lineHeight: "1.5" }}>
-                      All the information you submit here goes directly to the
-                      PG owner after you have booked your bed.
-                    </span>
-                  </li>
+              </section>
+              <section className="my-md-5">
+                <div
+                  className="row p-0"
+                  style={{
+                    height: "fit-content",
+                    boxShadow: " rgba(0, 0, 0, 0.08) 0px 4px 12px",
+                    borderRadius: "6.5px",
+                  }}
+                >
+                  <h4 className="col-12">
+                    <div className="row">
+                      <div className="col-md-9 p-1">
+                        <div className=" d-flex ">
+                          <input
+                            type="text"
+                            className="form-control w-75"
+                            placeholder="Type in place to get direction from PG"
+                          />
+                          <span className="search-box ">Get Direction</span>
+                        </div>
+                      </div>
+                      <div className="col-md-3 ps-md-3">Near By...</div>
+                    </div>
+                  </h4>
 
-                  <li className="my-3">
-                    <span style={{ lineHeight: "1.5" }}>
-                      Once you've completed the bed booking successfully, an
-                      email will be sent to you containing the PG owner's name,
-                      contact number, and payment receipt.
-                    </span>
-                  </li>
-                </ul>
-                <div className="ms-1 my-2">
-                  <button className="book-bed">Book Bed</button>
+                  <div className="col-md-9">
+                    <div className="row p-0">
+                      <iframe
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3503.203386323958!2d77.31864131492027!3d28.59367469258985!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390ce4f0a89ce605%3A0xfd09bf1f744de96f!2sGohoardings!5e0!3m2!1sen!2sin!4v1667808584343!5m2!1sen!2sin"
+                        className="google_map m-0 p-0"
+                        allowFullScreen={true}
+                        loading="lazy"
+                        style={{
+                          height: "42vh",
+                          boxShadow: " rgba(0, 0, 0, 0.08) 0px 4px 12px",
+                        }}
+                        title="google-map"
+                      ></iframe>
+                    </div>
+                  </div>
+                  <div className="col-md-3 ps-md-3">
+                    <ul className="p-0">
+                      <li>
+                        <img
+                          src="../../../imgs/train.png"
+                          className="aminites-icon"
+                        />{" "}
+                        <span>Metro</span>
+                      </li>
+
+                      <li>
+                        <img
+                          src="../../../imgs/mall.png"
+                          className="aminites-icon"
+                        />{" "}
+                        <span>Mall</span>
+                      </li>
+                      <li>
+                        <img
+                          src="../../../imgs/atm-machine.png"
+                          className="aminites-icon"
+                        />
+                        <span>ATM</span>
+                      </li>
+                      <li>
+                        <img
+                          src="../../../imgs/park.png"
+                          className="aminites-icon"
+                        />
+                        <span>Park</span>
+                      </li>
+                      <li>
+                        <img
+                          src="../../../imgs/bank.png"
+                          className="aminites-icon"
+                        />
+                        <span>Bank</span>
+                      </li>
+                    </ul>
+                  </div>
                 </div>
-              </div>
-            </form>
-          </div>
-        </section> */}
+              </section>
+              <section className="my-md-5">
+                <div
+                  className="row p-0"
+                  style={{
+                    height: "fit-content",
+                  }}
+                >
+                  <div className="col-md-8">
+                    <div
+                      className="row"
+                      style={{
+                        boxShadow: " rgba(0, 0, 0, 0.08) 0px 4px 12px",
+                        borderRadius: "6.5px",
+                      }}
+                    >
+                      <h4 className="">Amenities available</h4>
+                      <div className="col-md-4">
+                        <ul className="p-0">
+                          <li>
+                            <img
+                              src="../../../imgs/air-conditioner.png"
+                              className="aminites-icon-ac"
+                            />{" "}
+                            <span> AC</span>
+                          </li>
+
+                          <li>
+                            <img
+                              src="../../../imgs/restaurant.png"
+                              className="aminites-icon"
+                            />{" "}
+                            <span>Food</span>
+                          </li>
+                          <li>
+                            <img
+                              src="../../../imgs/wi-fi.png"
+                              className="aminites-icon"
+                            />{" "}
+                            <span>WI-FI</span>
+                          </li>
+                          <li>
+                            <img
+                              src="../../../imgs/laundry.png"
+                              className="aminites-icon"
+                            />{" "}
+                            <span>Washing Machine</span>
+                          </li>
+                        </ul>
+                      </div>
+                      <div className="col-md-4">
+                        <ul className="p-0">
+                          <li>
+                            <img
+                              src="../../../imgs/television.png"
+                              className="aminites-icon"
+                            />
+                            <span>TV</span>
+                          </li>
+
+                          <li>
+                            <img
+                              src="../../../imgs/fridge.png"
+                              className="aminites-icon"
+                            />
+                            <span>Fridge</span>
+                          </li>
+                          <li>
+                            <img
+                              src="../../../imgs/water-boiler.png"
+                              className="aminites-icon"
+                            />
+                            <span>Geyser</span>
+                          </li>
+                          <li>
+                            <img
+                              src="../../../imgs/generator.png"
+                              className="aminites-icon"
+                            />{" "}
+                            <span>Power Backup</span>
+                          </li>
+                        </ul>
+                      </div>
+                      <div className="col-md-4">
+                        <ul className="p-0">
+                          <li>
+                            <img
+                              src="../../../imgs/laundry2.png"
+                              className="aminites-icon"
+                            />{" "}
+                            <span>Laundry</span>
+                          </li>
+                          <li>
+                            <img
+                              src="../../../imgs/parking-area.png"
+                              className="aminites-icon"
+                            />
+                            <span>Parking area</span>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="col-md-4 ">
+                    <div
+                      className="row ms-2"
+                      style={{
+                        boxShadow: " rgba(0, 0, 0, 0.08) 0px 4px 12px",
+                        borderRadius: "6.5px",
+                      }}
+                    >
+                      <h4 className="">Rules and regulations</h4>
+                      <div className="col">
+                        <ul className="p-0">
+                          <li>
+                            <img
+                              src="../../../imgs/no-smoking.png"
+                              className="aminites-icon"
+                            />{" "}
+                            <span>No smoking</span>
+                          </li>
+
+                          <li>
+                            <img
+                              src="../../../imgs/no-drinking.png"
+                              className="aminites-icon"
+                            />{" "}
+                            <span>No alcohole</span>
+                          </li>
+                          <li>
+                            <img
+                              src="../../../imgs/girl2.png"
+                              className="aminites-icon-ac"
+                            />{" "}
+                            <span>No Girl’s Entry</span>
+                          </li>
+                          <li>
+                            <img
+                              src="../../../imgs/gate.png"
+                              className="aminites-icon"
+                            />{" "}
+                            <span>Gate Closing Time 11:00 pm</span>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </section>
+            </>
+          )}
         </div>
 
         <style jsx>
