@@ -4,6 +4,7 @@ import { AiOutlineSearch } from "react-icons/ai";
 import Slider from "react-slick";
 import { MdRestartAlt } from "react-icons/md";
 import { useRouter } from "next/router";
+import Footer from "@/components/footer";
 const index = () => {
   const route = useRouter();
   const data = [
@@ -676,6 +677,7 @@ const index = () => {
           </div>
         </div>
       </div>
+      <Footer/>
       <style jsx>
 
         {`

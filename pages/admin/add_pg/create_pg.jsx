@@ -170,6 +170,7 @@ const Create_pg = () => {
     }
   };
 
+  console.log(FormData);
   return (
     <>
       <div className="addpg-container p-3">
@@ -721,7 +722,7 @@ const Create_pg = () => {
 
                       <button
                         className="btn-create w-100"
-                        style={{ marginTop: "15vh" }}
+                        style={{ marginTop: "10vh" }}
                       >
                         Submit PG
                       </button>
