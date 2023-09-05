@@ -7,7 +7,7 @@ import { MdOutlineDone } from "react-icons/md";
 const Create_pg = () => {
   const form_data = {
     pg_name: "",
-    total_floor: 1,
+    total_floor: 1,   
     pg_address1: "",
     pg_landmark: "",
     city: "",
