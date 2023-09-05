@@ -105,15 +105,15 @@ imageServer.post('/invoice', async (req, res) => {
     // Send email using the transporter
     transporter.sendMail(mailOptions, (error, info) => {
       if (error) {
-        console.error('Error sending email:', error);
+       
         return res.status(500).send('Error sending email');
       } else {
-        console.log('Email sent:', info.response);
+      
         return res.status(200).send('Email sent successfully');
       }
     });
   } catch (error) {
-    console.error('Error generating PDF:', error);
+  
     return res.status(500).send('Error generating PDF');
   }
 });

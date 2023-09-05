@@ -380,7 +380,7 @@ const index = () => {
                             setFilter({ ...filter, room_type: newValue });
                           }}
                         />
-                        <span className="ms-2">Single Room</span>
+                        <span className="ms-2">Private Room</span>
                       </li>
                       <li>
                         <input
@@ -551,7 +551,8 @@ const index = () => {
                   <div className="row">
                     <div className="col-md-10">
                       <h5>
-                        {data.room_type} PG in {data.location}
+                        {filter.room_type && data.room_type} PG in{" "}
+                        {data.location}
                       </h5>
                       <span>{data.landmark}</span>
                     </div>
@@ -565,7 +566,7 @@ const index = () => {
                           )
                         }
                       >
-                       Select Bed
+                        Select Bed
                       </button>
                     </div>
                   </div>
@@ -603,69 +604,83 @@ const index = () => {
                           <span className="text-center">Available</span>
                           <div className="col-md-3 ">
                             <ul className="p-0">
-                              <li>
-                                <img
-                                  src="../imgs/air-conditioner.png"
-                                  className="aminites-icon-ac"
-                                />
-                              </li>
+                              {data.AC == 1 && (
+                                <li>
+                                  <img
+                                    src="../imgs/air-conditioner.png"
+                                    className="aminites-icon-ac"
+                                  />
+                                </li>
+                              )}
 
-                              <li>
-                                <img
-                                  src="../imgs/restaurant.png"
-                                  className="aminites-icon"
-                                />
-                              </li>
+                              {data.food == 1 && (
+                                <li>
+                                  <img
+                                    src="../imgs/restaurant.png"
+                                    className="aminites-icon"
+                                  />
+                                </li>
+                              )}
                             </ul>
                           </div>
                           <div className="col-md-3 ">
                             <ul className="p-0">
-                              <li>
-                                <img
-                                  src="../imgs/television.png"
-                                  className="aminites-icon"
-                                />
-                              </li>
-
-                              <li>
-                                <img
-                                  src="../imgs/fridge.png"
-                                  className="aminites-icon"
-                                />
-                              </li>
+                              {data.tv == 1 && (
+                                <li>
+                                  <img
+                                    src="../imgs/television.png"
+                                    className="aminites-icon"
+                                  />
+                                </li>
+                              )}
+                              {data.fridge == 1 && (
+                                <li>
+                                  <img
+                                    src="../imgs/fridge.png"
+                                    className="aminites-icon"
+                                  />
+                                </li>
+                              )}
                             </ul>
                           </div>
                           <div className="col-md-3">
                             <ul className="p-0">
-                              <li>
-                                <img
-                                  src="../imgs/water-boiler.png"
-                                  className="aminites-icon"
-                                />
-                              </li>
-                              <li>
-                                <img
-                                  src="../imgs/parking-area.png"
-                                  className="aminites-icon"
-                                />
-                              </li>
+                              {data.geyser == 1 && (
+                                <li>
+                                  <img
+                                    src="../imgs/water-boiler.png"
+                                    className="aminites-icon"
+                                  />
+                                </li>
+                              )}
+                              {data.parking == 1 && (
+                                <li>
+                                  <img
+                                    src="../imgs/parking-area.png"
+                                    className="aminites-icon"
+                                  />
+                                </li>
+                              )}
                             </ul>
                           </div>
                           <div className="col-md-3">
                             <ul className="p-0">
-                              <li>
-                                <img
-                                  src="../imgs/wi-fi.png"
-                                  className="aminites-icon"
-                                />
-                              </li>
-
-                              <li>
-                                <img
-                                  src="../imgs/laundry.png"
-                                  className="aminites-icon"
-                                />
-                              </li>
+                              {data.wi_fi == 1 && (
+                                <li>
+                                  <img
+                                    src="../imgs/wi-fi.png"
+                                    className="aminites-icon"
+                                  />
+                                </li>
+                              )}
+                              {data.washing_machine == 1 && (
+                                <li>
+                                  <img
+                                    src="../imgs/laundry.png"
+                                    className="aminites-icon"
+                                  />
+                                </li>
+                              )}
                             </ul>
                           </div>
                         </div>
@@ -678,11 +693,9 @@ const index = () => {
           </div>
         </div>
       </div>
-      <Footer/>
+      <Footer />
       <style jsx>
-
         {`
-        
           .reset-btn {
             border: none;
             border-radius: 4.5px;

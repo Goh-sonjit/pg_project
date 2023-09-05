@@ -170,7 +170,7 @@ const Create_pg = () => {
     }
   };
 
-  console.log(FormData);
+
   return (
     <>
       <div className="addpg-container p-3">
